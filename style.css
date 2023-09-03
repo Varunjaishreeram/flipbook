@@ -161,38 +161,6 @@ h2 {
 
 
 
-/* Your existing CSS styles ... */
-
-/* Style the warning popup */
-/* #warningPopup {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.8);
-  color: white;
-  text-align: center;
-  font-size: 18px;
-  padding-top: 40%;
-  z-index: 9999;
-} */
-
-/* Add this CSS for landscape mode */
-/* @media (max-width: 700px) and (orientation: landscape) {
-  body, .container {
-    transform: rotate(90deg);
-    transform-origin: left top;
-    width: 100vh;
-    height: 100vw;
-    position: fixed;
-    top: 0;
-    left: 0;
-  }
-} */
-
-
 
  /* hello varun */
 @media (min-width: 394px) {
