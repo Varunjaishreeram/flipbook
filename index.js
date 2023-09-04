@@ -70,5 +70,5 @@ $(document).ready(function () {
   // Automatically turn the page every 4000 milliseconds (4 seconds)
   setInterval(function () {
     nextPage();
-  }, 4000);
+  }, 6000);
 });

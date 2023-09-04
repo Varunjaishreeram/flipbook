@@ -1,12 +1,29 @@
 @import url("https://fonts.googleapis.com/css?family=Roboto+Mono");
 @import url("https://fonts.googleapis.com/css?family=Quicksand");
 
-body {
-  padding: 1.2em;
 
+
+
+
+
+body {
+  background-image: url("./images/myImage.jpeg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: 100% 100%;
+  
+
+  padding: 1.2em;
   font-family: "Roboto Mono" !important;
   background-color: #0097a7;
   font-style:bold;
+}
+body::before{
+  content: "";
+  background: inherit;
+  filter: blur(10px);
+  position: absolute;
+  z-index: -1;
 }
 
 #flipbook .page {
