@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questions</title>
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-image: url('your-animated-gif.gif');
+            background-size: cover;
+        }
+
+        .centered-div {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            flex-direction: column;
+        }
+
+        #btn{
+           visibility: hidden;
+        
+        }
+
+    </style>
+</head>
+
+<body>
+    
+    <div class="centered-div">
+        <div class="question"></div>
+        <div class="answer"></div>
+        <button id="btn" style="background-color: lightcyan; border-radius: 10px; margin-top: 10px;">submit ☠️</button>
+    </div>
+
+    <script>
+         const q = document.querySelector(".question");
+         const a=document.querySelector(".answer");
+         const btn=document.getElementById("btn");
+        const questions = ["how much do you think i love you 😏 ?", "Want to listen to my favorite voice?","click on this link below 👀", "What is the LCM of 2, 8, and 3? ☠️"];
+        let currentQuestion = 0
+
+        function displayQuestion() {
+            
+            qu = questions[currentQuestion];
+            console.log(currentQuestion,qu)
+            q.innerHTML = `<h2> ${qu} </h2>`;
+
+            if (currentQuestion == 0) {
+               options=["below 1","above 10","nahi karta ☠️"]
+               
+                options.forEach((el,index) => {
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.name = 'option';
+                checkbox.id = `option${index}`;
+                checkbox.value = el;
+                const label = document.createElement('label');
+                label.textContent = el;
+                label.style.fontSize = '24px'
+                label.setAttribute('for', `option${index}`);
+                const parent=document.createElement("div");
+                parent.appendChild(checkbox)
+                parent.appendChild(label)
+                a.appendChild(parent);
+             });
+               
+             
+             btn.style.visibility="visible"
+            }
+            
+            else if(currentQuestion==1){
+               
+                a.innerHTML=`<audio controls autoplay>
+                              <source src="./audioFile/nihu.ogg" type="audio/ogg">
+                                Your browser does not support the audio element.
+                                </audio>`
+                
+               btn.innerText="next"
+               btn.style.visibility="visible"
+              
+
+            }
+             
+            else if (currentQuestion==2){
+                a.innerHTML=`<a href="https://docs.google.com/forms/d/e/1FAIpQLSdXHfy_S9Meq9Dn1xnBOS-w4rJIg5TcB-ftbUzVvcovQ1eTBg/viewform">hi</a>`
+                
+            }
+            
+
+
+        }
+
+
+        function handleSubmit(){
+            
+            if(currentQuestion==0){
+                const checkboxes = document.querySelectorAll('input[name="option"]:checked');
+
+                if (checkboxes.length>1){
+                alert("you can choose only one option ☠️");
+
+                }
+                else if(checkboxes.length==1 && checkboxes[0].value!="above 10"){
+                alert("opps! baby you have to choose above 10 😂");
+                }
+
+                else{
+                    alert("haye! itna sochti ho mere bare me 💖");
+                    btn.style.visibility="hidden"
+                    currentQuestion+=1
+                    displayQuestion()
+                }
+            }
+           
+            else if(currentQuestion==1){
+                    
+                    currentQuestion+=1
+                    displayQuestion()
+
+            }
+
+            
+
+           
+        }
+
+        displayQuestion()
+
+        document.getElementById("btn").addEventListener("click",handleSubmit)
+    </script>
+</body>
+
+</html>

@@ -1,155 +1,151 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script src="jquery/turn.js"></script>
-   <script src="jquery/turn.min.js"></script>
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            color: #333;
+            font-size: 24px;
+        }
+
+        .avatar {
+            background-color: #333;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 24px;
+            /* margin: 10px 0; */
+        }
+
+        img {
+            width: 95%;
+            height: 95%;
+            border-radius: 50%;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 90%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        .login-button {
+            width: 90%;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        .login-button:hover {
+            background-color: #555;
+        }
+    </style>
 </head>
 
 <body>
-
-  <div class="container">
-    <div class="book-wrapper animated">
-      <div id="flipbook">
-        <div class=" fixed hard p1" >
-        
-           
-             <div class = "content-wrapper">
-                <h1>TOVE JANSSON</h1>
-                <h2>The author of the MOOMIN books</h2>
-          </div>
+    <div class="header">
+        <h1>Welcome Varun</h1>
+        <div class="avatar">
+            <img src="images/myImage.jpeg" alt="">
         </div>
-  
-        <div class=" fixed hard " > 
-   <div class = "content-wrapper">
-          <figure>
-            <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/487184/thingumy-and-bob.svg" alt="Thingumy and Bob">
-  
-  </figure>
-          </div> </div>
-  
-  <div class="page ">
-  
-   <div class = "content-wrapper"> 
-     <blockquote>
-    <p> Tove Jansson (1914-2001) was a Finnish-Swedish writer and artist, who achieved worldwide fame as the creator of the stories about the Moomins</p></blockquote>
-    <figure>
-      <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/487184/5c9299cf4a63f.png" alt="Tove Jansson">
-     
-    </figure>
-  </div>  <!--content-wrapper -->
-    </div> <!--page2 -->
-    
-  <div class="page ">
-  <div class = "content-wrapper"> 
-    <blockquote>   <p>The Moomin family and their friends live an adventurous life in the idyllic and peaceful Moominvalley. They are a family of white and roundish trolls. </p> </blockquote> 
-   
-    <figure>
-      <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/487184/moominvalley.svg" alt="Moominvalley">
-           
-          </figure>
-    </div></div>
-        
-        <div class=" page " >
-        <div class = "content-wrapper"  >
-          <blockquote><p> "By my tail! I’ll never save anybody in the dark again!?" </p> <cite> Moominpappa, from the book The Exploits of Moominpappa </cite></blockquote>
-          
-          <figure>
-            <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/487184/moominpappa.svg" alt=" Moominpappa">
-           
-          </figure>
-          </div> <!--content-wrapper-->
-        </div> <!--page-->
-        
-        
-        <div class=" page " >
-        <div class = "content-wrapper"  >
-          <blockquote><p> "All things are so very uncertain, and that's exactly what makes me feel reassured" </p> <cite> Too-ticky,Moominland Midwinter </cite></blockquote>
-          
-          <figure>
-            <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/487184/too-ticky.svg" alt="Too-ticky">
-           
-          </figure>
-          </div> <!--content-wrapper-->
-        </div> <!--page-->
-   <div class="  page " >
-   <div class="  content-wrapper " >
-     <blockquote><p>"That’s where we’re going to live and lead a wonderful life, full of troubles…"</p> <cite>Moominmamma, from the book Moominpappa at Sea</cite></blockquote>
-          
-          <figure>
-            <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/487184/snork.svg " alt ="Moominmamma">
-          
-          </figure>
-          </div>
-        </div>
-        <div class="page " >
-   <div class="  content-wrapper " >
-     <blockquote><p>"It looks rather ordinary,” said the Snork. “Unless you consider that a top hat is always somewhat extraordinary, of course.</p> <cite>Snork</cite></blockquote>
-          
-          <figure>
-            <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/487184/snork.svg">
-          
-          </figure>
-          </div>
-        </div>
-        <div class="page " >
-   <div class="content-wrapper" >
-     <blockquote> <p>"But I’m sure you can do the tango, one short step to the side and two long steps backwards."</p><cite>Snorkmaiden, from the book Comet in Moominland</cite></blockquote>
-         
-          <figure>
-            <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/487184/snorkmaiden%20.svg" alt="Snorkmaiden, from the book Comet in Moominland">
-           
-          </figure>
-        </div>
-        </div>
-        <div class="page " >
-          <div class="content-wrapper " >
-            <blockquote><p>"Not one adventure in a whole day. Just grey banks and grey banks and grey banks, and not even an adventure."</p><cite>Sniff, from the book Comet in Moominland</cite></blockquote>
-          
-          <figure>
-            <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/487184/sniff.svg" alt ="Sniff, from the book Comet in Moominland">
-            
-          </figure>
-        </div>
-        </div>
-        <div class="page" >
-          <div class =" content-wrapper">
-         <blockquote><p>"Well, that really is the last word in madness."</p><cite>Little My, from the book Moominpappa at Sea</cite></blockquote> 
-          <figure>
-            <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/487184/little-my.svg">
-           
-          </figure>
-          </div> </div>
-        
-  
-   
-        <div class="hard back "  ><div class = "content-wrapper">
-          <figure>
-            <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/487184/moominhouse.svg" alt="Moominhouse">
-  
-  </figure>
-          </div></div>
-      </div>
     </div>
-    <!-- <div class="credits">
-    Images from 
-    <a href="https://www.moomin.com/en/">Moomin</a> -->
-  </div>
-  </div>
+    <div class="container">
+        <h2>Login</h2>
+        <form action="#" >
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" maxlength="20" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <button type="submit" onclick="main(event)" class="login-button">Login</button>
+            <div id="error"></div>
+        </form>
+    </div>
 
-  <!-- Add these buttons below your flipbook container -->
-  <!-- Add these buttons below your flipbook container with inline CSS for styling and positioning -->
-  <div>
-  <button id="prevButton" style="position: relative; top: 20px; left: 500px; padding: 10px 20px; background-color: #007bff; color: #fff; border: none; cursor: pointer;">Previous Page</button>
-  <button id="nextButton" style="position: relative; top: 20px; left: 600px; padding: 10px 20px; background-color: #007bff; color: #fff; border: none; cursor: pointer;">Next Page</button>
-</div>
-  
 
-  <script src="index.js"></script>
+
+    <script>
+        function main(e){
+          e.preventDefault();
+              username=document.getElementById("username").value
+              password=document.getElementById("password").value
+              if (username==="hello" && password==123){
+                window.location="main.html"
+              }
+
+              else{
+               const error=document.getElementById("error")
+               error.innerHTML="<h1>opps! wrong password 😂</h1>"
+               setTimeout(()=>{
+                  error.innerHTML=""
+               },5000)
+
+              }
+             
+        }
+      </script>
+    
 </body>
+
+
 </html>
