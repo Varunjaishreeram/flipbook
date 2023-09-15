@@ -7,7 +7,8 @@
 
 
 body {
-  background-image: url("./images/myImage.jpeg");
+  /* background-image: url("./images/naina3.jpeg"); */
+  background-color: black;
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: 100% 100%;
@@ -15,7 +16,7 @@ body {
 
   padding: 1.2em;
   font-family: "Roboto Mono" !important;
-  background-color: #0097a7;
+ 
   font-style:bold;
 }
 body::before{

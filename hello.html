@@ -37,14 +37,14 @@
     <div class="centered-div">
         <div class="question"></div>
         <div class="answer"></div>
-        <button id="btn" style="background-color: lightcyan; border-radius: 10px; margin-top: 10px;">submit ☠️</button>
+        <button id="btn" style="background-color: #a0d2eb; border-radius: 10px; margin-top: 10px;">submit ☠️</button>
     </div>
 
     <script>
          const q = document.querySelector(".question");
          const a=document.querySelector(".answer");
          const btn=document.getElementById("btn");
-        const questions = ["how much do you think i love you 😏 ?", "Want to listen to my favorite voice?","click on this link below 👀", "What is the LCM of 2, 8, and 3? ☠️"];
+        const questions = ["how much do you think i love you 😏 ?", "Want to listen to my favorite voice?","will you be my future wife 👀?","click on this link below 👀"];
         let currentQuestion = 0
 
         function displayQuestion() {
@@ -88,9 +88,34 @@
               
 
             }
+
+            else if(currentQuestion==2){
+                a.innerHTML="";
+                options=["yes, ofc 😘","soch ke batungi 🤭","no"]
+               
+                options.forEach((el,index) => {
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.name = 'option';
+                checkbox.id = `option${index}`;
+                checkbox.value = el;
+                const label = document.createElement('label');
+                label.textContent = el;
+                label.style.fontSize = '24px'
+                label.setAttribute('for', `option${index}`);
+                const parent=document.createElement("div");
+                parent.appendChild(checkbox)
+                parent.appendChild(label)
+                a.appendChild(parent);
+             });
+               
              
-            else if (currentQuestion==2){
-                a.innerHTML=`<a href="https://docs.google.com/forms/d/e/1FAIpQLSdXHfy_S9Meq9Dn1xnBOS-w4rJIg5TcB-ftbUzVvcovQ1eTBg/viewform">hi</a>`
+             btn.style.visibility="visible"
+
+            }
+             
+            else if (currentQuestion==3){
+                a.innerHTML=`<a href="https://docs.google.com/forms/d/e/1FAIpQLSdXHfy_S9Meq9Dn1xnBOS-w4rJIg5TcB-ftbUzVvcovQ1eTBg/viewform">click me</a>`
                 
             }
             
@@ -103,8 +128,10 @@
             
             if(currentQuestion==0){
                 const checkboxes = document.querySelectorAll('input[name="option"]:checked');
-
-                if (checkboxes.length>1){
+                if (checkboxes.length==0){
+                    alert("opps! baby you have to choose above 10 😂 to proceed");
+                }
+                else if (checkboxes.length>1){
                 alert("you can choose only one option ☠️");
 
                 }
@@ -113,7 +140,7 @@
                 }
 
                 else{
-                    alert("haye! itna sochti ho mere bare me 💖");
+                    alert("haye! itna sochti ho mere bare me cutie 💖");
                     btn.style.visibility="hidden"
                     currentQuestion+=1
                     displayQuestion()
@@ -125,6 +152,41 @@
                     currentQuestion+=1
                     displayQuestion()
 
+            }
+
+            else if(currentQuestion==2){
+                const checkboxes = document.querySelectorAll('input[name="option"]:checked');
+                if (checkboxes.length==0){
+                    alert("you have to say yes 😌");
+                }
+                else if (checkboxes.length>1){
+                alert("you can choose only yes, baby ☠️");
+
+                }
+
+                else if (checkboxes.length==1 && checkboxes[0].value=="soch ke batungi 🤭" ){
+                alert("soch mene liya hai tum bas ha kaho 😂");
+
+                }
+
+                else if (checkboxes.length==1 && checkboxes[0].value=="no" ){
+                    alert("you can choose only yes , baby ☠️");
+
+                }
+
+                else if(checkboxes.length==1 && checkboxes[0].value=="yes, ofc 😘"){
+                    alert("i love you so much nainu ❤️, chalo aaj ye bhi confirm ho gaya 😂")
+                    currentQuestion+=1
+                    displayQuestion()
+
+                }
+
+
+            }
+
+            else if(currentQuestion==3){
+                alert("Now, enjoy your day baby 😘")
+                window.location="main.html"
             }
 
             
