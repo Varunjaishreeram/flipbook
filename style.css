@@ -120,6 +120,7 @@ figure img {
   padding: 10px;
   margin :0 auto;
   font-style:bold;
+  
 }
 
 blockquote{
@@ -174,6 +175,9 @@ h2 {
 }
 #flipbook{
   margin : 0 auto;
+  position: relative;
+  width: 700px;
+  height: 340px;
 } 
 
 
@@ -231,3 +235,4 @@ h2 {
 
   /* Adjust other styles as needed for mobile devices */
 }
+
