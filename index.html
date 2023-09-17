@@ -33,9 +33,9 @@
 
         .avatar {
             background-color: #333;
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
+            width: 140px;
+            height: 140px;
+            border-radius: 70%;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -101,9 +101,9 @@
 
 <body>
     <div class="header">
-        <h1>Welcome Varun</h1>
+        <h1>Welcome Nihu</h1>
         <div class="avatar">
-            <img src="images/myImage.jpeg" alt="">
+            <img style="transform: rotate(18deg);" src="images/naina3.jpeg" alt="">
         </div>
     </div>
     <div class="container">
@@ -129,13 +129,15 @@
           e.preventDefault();
               username=document.getElementById("username").value
               password=document.getElementById("password").value
-              if (username==="nainu" && password=="lifeline"){
+              if (username==="nainu" && password=="mylifeline"){
                 window.location="main.html"
               }
 
               else{
                const error=document.getElementById("error")
-               error.innerHTML="<h1>opps! wrong password 😂</h1>"
+               
+               error.innerHTML="<h1>opps! wrong credentials 😂</h1>"
+               alert("pata tha mujhe isliye ye aasan password banaya tha 😂")
                setTimeout(()=>{
                   error.innerHTML=""
                },5000)
