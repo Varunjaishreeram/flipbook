@@ -126,8 +126,7 @@ figure img {
 
 blockquote{
   padding: 0.1em;
-  
-  
+
 }
 cite {
   display: block;
@@ -143,7 +142,7 @@ cite:before {
 }
 blockquote  p {
  
-    height: 50px;
+    height: 20px;
 }
 
 h1 {
