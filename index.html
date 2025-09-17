@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="screen-orientation" content="landscape">
     <title>Login Page</title>
     <style>
+        @import url("https://fonts.googleapis.com/css?family=Quicksand");
+
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
+            font-family: 'Quicksand', sans-serif;
+            background: linear-gradient(135deg, #ff4d94, #f3e8ff);
             margin: 0;
             padding: 0;
             display: flex;
@@ -16,6 +18,8 @@
             align-items: center;
             justify-content: center;
             min-height: 100vh;
+            overflow: auto;
+            position: relative;
         }
 
         .header {
@@ -24,91 +28,246 @@
             flex-direction: column;
             text-align: center;
             margin-bottom: 20px;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateY(-20px); }
+            100% { opacity: 1; transform: translateY(0); }
         }
 
         .header h1 {
-            color: #333;
-            font-size: 24px;
+            color: #fff;
+            font-size: 28px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            margin: 10px 0;
         }
 
         .avatar {
-            background-color: #333;
-            width: 140px;
-            height: 140px;
-            border-radius: 70%;
+            background-color: #fff;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #fff;
-            font-size: 24px;
-            /* margin: 10px 0; */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+            position: relative;
         }
 
-        img {
+        .avatar:hover {
+            transform: scale(1.05);
+        }
+
+        .avatar img {
             width: 95%;
             height: 95%;
             border-radius: 50%;
+            transform: rotate(18deg);
         }
 
         .container {
-            background-color: #fff;
+            background-color: rgba(255, 255, 255, 0.95);
             padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
             width: 100%;
             max-width: 400px;
             text-align: center;
+            margin: 0 10px;
+            position: relative;
+            z-index: 10;
         }
 
         h2 {
             text-align: center;
-            color: #333;
+            color: #ff4d94;
+            font-size: 22px;
+            margin-bottom: 15px;
         }
 
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
 
         label {
             display: block;
             margin-bottom: 5px;
-            color: #555;
+            color: #333;
+            font-size: 14px;
+            font-weight: bold;
         }
 
         input[type="text"],
         input[type="password"] {
             width: 90%;
             padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 3px;
+            border: 1px solid #ff4d94;
+            border-radius: 5px;
+            font-family: 'Quicksand', sans-serif;
+            font-size: 14px;
+            background-color: #fff;
+            transition: border-color 0.3s ease;
+        }
+
+        input[type="text"]:focus,
+        input[type="password"]:focus {
+            outline: none;
+            border-color: #f3e8ff;
+            box-shadow: 0 0 5px rgba(255, 77, 148, 0.5);
         }
 
         .login-button {
             width: 90%;
-            background-color: #333;
+            background-color: #ff4d94;
             color: #fff;
             border: none;
-            padding: 10px;
-            border-radius: 3px;
+            padding: 12px;
+            border-radius: 5px;
             cursor: pointer;
+            font-family: 'Quicksand', sans-serif;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
         }
 
         .login-button:hover {
-            background-color: #555;
+            background-color: #e6397f;
+        }
+
+        #error {
+            color: #ff4d94;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+
+        #error h1 {
+            font-size: 16px;
+            margin: 0;
+        }
+
+        .balloon {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            bottom: 20px;
+            left: 20px;
+            z-index: 5;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0); }
+        }
+
+        .makeup-icons {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 5;
+        }
+
+        .makeup-icon {
+            width: 40px;
+            height: 40px;
+            opacity: 0.8;
+            animation: sparkle 2s ease-in-out infinite;
+        }
+
+        .makeup-icon:nth-child(2) { animation-delay: 0.5s; }
+        .makeup-icon:nth-child(3) { animation-delay: 1s; }
+
+        @keyframes sparkle {
+            0% { opacity: 0.8; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.1); }
+            100% { opacity: 0.8; transform: scale(1); }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            .header h1 {
+                font-size: 24px;
+            }
+
+            .avatar {
+                width: 120px;
+                height: 120px;
+            }
+
+            .container {
+                padding: 15px;
+                max-width: 90%;
+            }
+
+            input[type="text"],
+            input[type="password"] {
+                padding: 8px;
+                font-size: 12px;
+            }
+
+            .login-button {
+                padding: 10px;
+                font-size: 14px;
+            }
+
+            .balloon {
+                width: 60px;
+                height: 60px;
+                bottom: 10px;
+                left: 10px;
+            }
+
+            .makeup-icons {
+                top: 10px;
+                right: 10px;
+            }
+
+            .makeup-icon {
+                width: 30px;
+                height: 30px;
+            }
+
+            @media (orientation: portrait) {
+                body::before {
+                    content: "Please rotate your device to landscape mode for the best experience!";
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: rgba(0, 0, 0, 0.8);
+                    color: white;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 16px;
+                    text-align: center;
+                    z-index: 1000;
+                    font-family: 'Quicksand', sans-serif;
+                }
+            }
         }
     </style>
 </head>
-
 <body>
     <div class="header">
-        <h1>Welcome Nihu</h1>
+        <h1>Happy 18th Birthday, Nihu! 🎉</h1>
         <div class="avatar">
             <img style="transform: rotate(18deg);" src="images/naina3.jpeg" alt="">
         </div>
     </div>
     <div class="container">
         <h2>Login</h2>
-        <form action="#" >
+        <form action="#">
             <div class="form-group">
                 <label for="username">Username</label>
                 <input type="text" id="username" name="username" maxlength="20" required>
@@ -121,33 +280,32 @@
             <div id="error"></div>
         </form>
     </div>
-
-
-
+    <img src="images/balloon.webp" alt="Balloon" class="balloon">
+    <div class="makeup-icons">
+        <img src="images/lipstick.avif" alt="Lipstick" class="makeup-icon">
+        <img src="images/blush.jpg" alt="Blush" class="makeup-icon">
+        <img src="images/eyeshadow.avif" alt="" class="makeup-icon">
+        <img src="images/perfume.png" alt="" class="makeup-icon">
+        <img src="images/sunscreen.png" alt="" class="makeup-icon">
+        <img src="images/foundation.avif" alt="" class="makeup-icon">
+    </div>
     <script>
         function main(e){
-          e.preventDefault();
-              username=document.getElementById("username").value
-              password=document.getElementById("password").value
-              if (username==="nainu" && password=="mylifeline"){
+            e.preventDefault();
+            username=document.getElementById("username").value
+            password=document.getElementById("password").value
+            if (username==="nainu" && password=="mylifeline"){
                 window.location="main.html"
-              }
-
-              else{
-               const error=document.getElementById("error")
-               
-               error.innerHTML="<h1>opps! wrong credentials 😂</h1>"
-               alert("pata tha mujhe isliye ye aasan password banaya tha 😂")
-               setTimeout(()=>{
-                  error.innerHTML=""
-               },5000)
-
-              }
-             
+            }
+            else{
+                const error=document.getElementById("error")
+                error.innerHTML="<h1>opps! wrong credentials 😂</h1>"
+                alert("pata tha mujhe isliye ye aasan password banaya tha 😂")
+                setTimeout(()=>{
+                    error.innerHTML=""
+                },5000)
+            }
         }
-      </script>
-    
+    </script>
 </body>
-
-
 </html>

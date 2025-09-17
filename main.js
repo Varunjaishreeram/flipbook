@@ -12,7 +12,7 @@ $(document).ready(function () {
     width: 600,
     height: 340,
     autoCenter: true,
-    elevation: 400
+    elevation: 100000
   });
 
   // Function to go to the next page
@@ -38,7 +38,7 @@ $(document).ready(function () {
   // Automatically turn the page every 4000 milliseconds (4 seconds)
   setInterval(function () {
     nextPage();
-  },8000);
+  },100000);
 });
 
 

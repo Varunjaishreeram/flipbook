@@ -1,19 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Questions</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="screen-orientation" content="landscape">
+    <title>A Message for Naina</title>
     <style>
+        @import url("https://fonts.googleapis.com/css?family=Quicksand");
+
         body {
             margin: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            background-image: url('your-animated-gif.gif');
-            background-size: cover;
+            background: linear-gradient(135deg, #ff4d94, #f3e8ff);
+            font-family: 'Quicksand', sans-serif;
+            position: relative;
+            overflow: auto;
         }
 
         .centered-div {
@@ -22,188 +26,263 @@
             align-items: center;
             min-height: 100vh;
             flex-direction: column;
+            text-align: center;
+            padding: 20px;
+            max-width: 90%;
         }
 
-        #btn{
-           visibility: hidden;
-        
+        .message {
+            color: #fff;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            margin-bottom: 20px;
+            animation: fadeIn 1s ease-in-out;
         }
 
+        .message h2 {
+            font-size: 24px;
+            margin: 0;
+            font-weight: bold;
+        }
+
+        .content {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .content audio {
+            margin: 10px 0;
+            width: 100%;
+        }
+
+        .content a {
+            color: #ff4d94;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        .content a:hover {
+            color: #e6397f;
+        }
+
+        #btn {
+            visibility: hidden;
+            background-color: #ff4d94;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 10px;
+            margin-top: 10px;
+            cursor: pointer;
+            font-family: 'Quicksand', sans-serif;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        #btn:hover {
+            background-color: #e6397f;
+        }
+
+        .balloon {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            bottom: 20px;
+            left: 20px;
+            z-index: 5;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0); }
+        }
+
+        .makeup-icons {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 5;
+        }
+
+        .makeup-icon {
+            width: 40px;
+            height: 40px;
+            opacity: 0.8;
+            animation: sparkle 2s ease-in-out infinite;
+        }
+
+        .makeup-icon:nth-child(2) { animation-delay: 0.5s; }
+        .makeup-icon:nth-child(3) { animation-delay: 1s; }
+
+        @keyframes sparkle {
+            0% { opacity: 0.8; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.1); }
+            100% { opacity: 0.8; transform: scale(1); }
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateY(-20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 768px) {
+            .message h2 {
+                font-size: 20px;
+            }
+
+            .content {
+                padding: 10px;
+                max-width: 90%;
+            }
+
+            #btn {
+                padding: 8px 16px;
+                font-size: 14px;
+            }
+
+            .balloon {
+                width: 60px;
+                height: 60px;
+                bottom: 10px;
+                left: 10px;
+            }
+
+            .makeup-icons {
+                top: 10px;
+                right: 10px;
+            }
+
+            .makeup-icon {
+                width: 30px;
+                height: 30px;
+            }
+
+            @media (orientation: portrait) {
+                body::before {
+                    content: "Please rotate your device to landscape mode for the best experience!";
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: rgba(0, 0, 0, 0.8);
+                    color: white;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 16px;
+                    text-align: center;
+                    z-index: 1000;
+                    font-family: 'Quicksand', sans-serif;
+                }
+            }
+        }
     </style>
 </head>
-
 <body>
-    
     <div class="centered-div">
-        <div class="question"></div>
-        <div class="answer"></div>
-        <button id="btn" style="background-color: #a0d2eb; border-radius: 10px; margin-top: 10px;">submit ☠️</button>
+        <div class="message"></div>
+        <div class="content"></div>
+        <button id="btn" style="background-color: #ff4d94; border-radius: 10px; margin-top: 10px;">Yes ❤️</button>
     </div>
-
+    <img src="images/balloon.webp" alt="Balloon" class="balloon">
+    <div class="makeup-icons">
+        <br>
+        <br>
+        <br>
+        <br>
+       <img src="images/lipstick.avif" alt="Lipstick" class="makeup-icon">
+        <img src="images/blush.jpg" alt="Blush" class="makeup-icon">
+        <img src="images/eyeshadow.avif" alt="" class="makeup-icon">
+        <img src="images/perfume.png" alt="" class="makeup-icon">
+        <img src="images/sunscreen.png" alt="" class="makeup-icon">
+        <img src="images/foundation.avif" alt="" class="makeup-icon">
+    </div>
     <script>
-         const q = document.querySelector(".question");
-         const a=document.querySelector(".answer");
-         const btn=document.getElementById("btn");
-        const questions = ["how much do you think i love you 😏 ?", "Want to listen to my favorite voice?","will you be my future wife 👀?","click on this link below 👀"];
-        let currentQuestion = 0
+        const m = document.querySelector(".message");
+        const c = document.querySelector(".content");
+        const btn = document.getElementById("btn");
+        const messages = [
+            "Letting you go was never my plan, Naina. I’m here to build a life with you, step by step. ❤️",
+            "Your voice is my home. Listen to mine, and know I’m always with you. 🎶",
+            "I'll proudly fund your Nykaa addiction for a lifetime—consider me your personal beauty bank. Your dreams, your cart, my card. 💄💪",
+            "I’ve made mistakes, but I’m proving I’m the man you deserve. Share your heart here. 👇"
+        ];
+        let currentMessage = 0;
 
-        function displayQuestion() {
-            
-            qu = questions[currentQuestion];
-            console.log(currentQuestion,qu)
-            q.innerHTML = `<h2> ${qu} </h2>`;
-
-            if (currentQuestion == 0) {
-               options=["below 1","above 10","nahi karta ☠️"]
-               
-                options.forEach((el,index) => {
-                const checkbox = document.createElement('input');
-                checkbox.type = 'checkbox';
-                checkbox.name = 'option';
-                checkbox.id = `option${index}`;
-                checkbox.value = el;
-                const label = document.createElement('label');
-                label.textContent = el;
-                label.style.fontSize = '24px'
-                label.setAttribute('for', `option${index}`);
-                const parent=document.createElement("div");
-                parent.appendChild(checkbox)
-                parent.appendChild(label)
-                a.appendChild(parent);
-             });
-               
-             
-             btn.style.visibility="visible"
-            }
-            
-            else if(currentQuestion==1){
-               
-                a.innerHTML=`<audio controls autoplay>
-                              <source src="./audioFile/nihu.ogg" type="audio/ogg">
-                                Your browser does not support the audio element.
-                                </audio>
-                                <br>
-                                <audio controls autoplay>
-                               <source src="./audioFile/nihu1.ogg" type="audio/ogg">
-                                Your browser does not support the audio element.
-                                </audio>
-                                `
+        function displayMessage() {
+            const msg = messages[currentMessage];
+            m.innerHTML = `<h2>${msg}
                 
-               btn.innerText="next"
-               btn.style.visibility="visible"
-              
-
-            }
-
-            else if(currentQuestion==2){
-                a.innerHTML="";
-                options=["yes, ofc 😘","soch ke batungi 🤭","no"]
-               
-                options.forEach((el,index) => {
-                const checkbox = document.createElement('input');
-                checkbox.type = 'checkbox';
-                checkbox.name = 'option';
-                checkbox.id = `option${index}`;
-                checkbox.value = el;
-                const label = document.createElement('label');
-                label.textContent = el;
-                label.style.fontSize = '24px'
-                label.setAttribute('for', `option${index}`);
-                const parent=document.createElement("div");
-                parent.appendChild(checkbox)
-                parent.appendChild(label)
-                a.appendChild(parent);
-             });
-               
-             
-             btn.style.visibility="visible"
-
-            }
-             
-            else if (currentQuestion==3){
-                a.innerHTML=`<a href="https://docs.google.com/forms/d/e/1FAIpQLSdXHfy_S9Meq9Dn1xnBOS-w4rJIg5TcB-ftbUzVvcovQ1eTBg/viewform">click me</a>`
-                
-            }
-            
+                </h2>
+                `;
 
 
-        }
 
 
-        function handleSubmit(){
-            
-            if(currentQuestion==0){
-                const checkboxes = document.querySelectorAll('input[name="option"]:checked');
-                if (checkboxes.length==0){
-                    alert("opps! baby you have to choose above 10 😂 to proceed");
-                }
-                else if (checkboxes.length>1){
-                alert("you can choose only one option ☠️");
+            if (currentMessage === 0) {
+                c.innerHTML = `<p>
+  <video width="310" height="310" controls loop>
+    <source src="./videos/video.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video> <br><br>
+  Every moment with you feels right, Naina. I’m ready for our future together.
+</p>`;
 
-                }
-                else if(checkboxes.length==1 && checkboxes[0].value!="above 10"){
-                alert("opps! baby you have to choose above 10 😂");
-                }
-
-                else{
-                    alert("haye! itna sochti ho mere bare me cutie 💖");
-                    btn.style.visibility="hidden"
-                    currentQuestion+=1
-                    displayQuestion()
-                }
-            }
-           
-            else if(currentQuestion==1){
+                btn.style.visibility = "visible";
+            } else if (currentMessage === 1) {
+                c.innerHTML = `
+                    <audio controls autoplay>
+                        <source src="./audioFile/nihu.ogg" type="audio/ogg">
+                        Your browser does not support the audio element.
+                    </audio>
+                    <br>
+                    <audio controls autoplay>
+                        <source src="./audioFile/nihu1.ogg" type="audio/ogg">
+                        Your browser does not support the audio element.
+                    </audio>
+                `;
+                btn.style.visibility = "visible";
+            } else if (currentMessage === 2) {
+                c.innerHTML = `<p>From now on, it’s us against the world. I’ll make sure you get everything you want, always.
                     
-                    currentQuestion+=1
-                    displayQuestion()
-
+                    <h3> And You belong to me, Naina. Always have, always will. ❤️</h3>
+                    </p>`;
+                btn.style.visibility = "visible";
+            } else if (currentMessage === 3) {
+                c.innerHTML = `<a href="https://docs.google.com/forms/d/e/1FAIpQLSdXHfy_S9Meq9Dn1xnBOS-w4rJIg5TcB-ftbUzVvcovQ1eTBg/viewform">Click here to share your heart ❤️</a>`;
+                btn.innerText = "Finish 🎉";
+                btn.style.visibility = "hidden";
             }
-
-            else if(currentQuestion==2){
-                const checkboxes = document.querySelectorAll('input[name="option"]:checked');
-                if (checkboxes.length==0){
-                    alert("you have to say yes 😌");
-                }
-                else if (checkboxes.length>1){
-                alert("you can choose only yes, baby ☠️");
-
-                }
-
-                else if (checkboxes.length==1 && checkboxes[0].value=="soch ke batungi 🤭" ){
-                alert("soch mene liya hai tum bas ha kaho 😂");
-
-                }
-
-                else if (checkboxes.length==1 && checkboxes[0].value=="no" ){
-                    alert("you can choose only yes , baby ☠️");
-
-                }
-
-                else if(checkboxes.length==1 && checkboxes[0].value=="yes, ofc 😘"){
-                    alert("i love you so much nainu ❤️, chalo aaj ye bhi confirm ho gaya 😂")
-                    currentQuestion+=1
-                    displayQuestion()
-
-                }
-
-
-            }
-
-            else if(currentQuestion==3){
-                alert("Now, enjoy your day baby 😘")
-                window.location="main.html"
-            }
-
-            
-
-           
         }
 
-        displayQuestion()
+        function handleNext() {
+            if (currentMessage < messages.length - 1) {
+                currentMessage += 1;
+                displayMessage();
+                if (currentMessage === 1) {
+                    alert("Your voice lights up my world, Naina. Let’s keep going ❤️");
+                } else if (currentMessage === 2) {
+                    alert("I’m all in for you, Naina. Ready for more? 😎");
+                }
+            } else {
+                alert("Here’s to us, Naina, love, and all our dreams together! Enjoy your day, my love 😘");
+                window.location = "main.html";
+            }
+        }
 
-        document.getElementById("btn").addEventListener("click",handleSubmit)
+        displayMessage();
+        document.getElementById("btn").addEventListener("click", handleNext);
     </script>
 </body>
-
 </html>
