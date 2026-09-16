@@ -2,7 +2,8 @@
 @import url("https://fonts.googleapis.com/css?family=Quicksand");
 
 body {
-  background: linear-gradient(135deg, #ff4d94, #f3e8ff);;
+  /* A deep, elegant navy blue gradient */
+  background: linear-gradient(135deg, #051024, #0a2342, #173f5f);
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: 100% 100%;
@@ -14,8 +15,9 @@ body {
 body::before {
   content: "";
   background: inherit;
-  filter: blur(10px);
-  position: absolute;
+  filter: blur(15px);
+  position: fixed; 
+  top: 0; left: 0; right: 0; bottom: 0;
   z-index: -1;
 }
 
@@ -278,4 +280,22 @@ h2 {
       font-family: "Quicksand";
     }
   }
+}
+
+/* Updated styling for Buttons to match the Navy Blue theme */
+#prevButton, #nextButton, #playButton {
+  background-color: #173f5f !important; /* Elegant Ocean/Navy Blue */
+  color: white !important;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+  transition: all 0.3s ease;
+  border-radius: 8px;
+}
+
+#playButton {
+  border-radius: 50%; /* Keeps the circular look for the special message button */
+}
+
+#prevButton:hover, #nextButton:hover, #playButton:hover {
+  background-color: #0a2342 !important; /* Darker Navy on hover */
+  transform: scale(1.05);
 }

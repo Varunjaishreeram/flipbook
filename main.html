@@ -3,185 +3,473 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <meta name="screen-orientation" content="landscape">
-  <title>Document</title>
+  <title>A Message for Naina</title>
   <link rel="stylesheet" href="style.css">
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="jquery/turn.js"></script>
-  <script src="jquery/turn.min.js"></script>
+  
+  <style>
+    @import url("https://fonts.googleapis.com/css?family=Quicksand:400,600,700");
+
+    body {
+      background: linear-gradient(135deg, #051024, #0a2342, #173f5f);
+      margin: 0;
+      padding: 0;
+      font-family: 'Quicksand', sans-serif;
+      overflow: hidden; 
+      touch-action: pan-y; 
+    }
+
+    .app-container {
+      position: relative; /* Added so absolute floating buttons stay inside this container */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      width: 100vw;
+      padding: 20px; 
+      box-sizing: border-box;
+    }
+
+    .book-wrapper {
+      /* Removed bottom margin so the book perfectly centers vertically */
+      box-shadow: 0 25px 50px rgba(0,0,0,0.8), 0 0 20px rgba(224, 242, 254, 0.1);
+      border-radius: 8px;
+      background-color: #fff; 
+      z-index: 10;
+    }
+
+    #flipbook .page {
+      background-color: white;
+      border-radius: 4px;
+      box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    .content-wrapper {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      padding: 15px;
+      box-sizing: border-box;
+      text-align: center;
+      justify-content: center;
+      overflow-y: auto; 
+    }
+
+    .content-wrapper::-webkit-scrollbar { width: 4px; }
+    .content-wrapper::-webkit-scrollbar-thumb { background-color: rgba(23, 63, 95, 0.3); border-radius: 10px; }
+
+    .content-wrapper h1 { font-size: 20px; margin: 0 0 5px 0; color: #173f5f; }
+    .content-wrapper h2 { font-size: 16px; margin: 0 0 5px 0; color: #173f5f; }
+    .content-wrapper h3 { font-size: 15px; margin: 0 0 5px 0; color: #173f5f; flex-shrink: 0; }
+    .content-wrapper blockquote { font-size: 12.5px; line-height: 1.4; color: #333; margin: 0 0 10px 0; flex-shrink: 0; font-weight: 600; }
+
+    .content-wrapper figure {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex: 1; 
+      min-height: 0; 
+      width: 100%; 
+      overflow: hidden;
+    }
+
+    .content-wrapper img {
+      max-width: 100%;
+      max-height: 100%;
+      width: auto;
+      height: auto;
+      object-fit: contain; 
+      border-radius: 8px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+    }
+
+    .no-shadow { box-shadow: none !important; border-radius: 0 !important; }
+
+    /* Default Controls for Laptop (Horizontal & Flowing) */
+    .controls-container {
+      display: flex;
+      flex-direction: row; 
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      z-index: 100;
+      width: 100%;
+      max-width: 600px;
+      margin-top: 20px;
+    }
+
+    .modern-btn {
+      background: rgba(23, 63, 95, 0.7);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #fff;
+      padding: 12px 20px;
+      border-radius: 30px;
+      font-family: 'Quicksand', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    .modern-btn:active { transform: translateY(2px); box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); }
+    .special-btn { background: linear-gradient(135deg, #173f5f, #0a2342); border: 2px solid rgba(255, 255, 255, 0.3); }
+
+    .hint-text {
+      color: rgba(255, 255, 255, 0.7);
+      font-family: 'Quicksand', sans-serif;
+      font-size: 11px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      text-align: center;
+      margin-top: 15px;
+    }
+
+    .step-odd { display: block; padding: 5px; margin: 3px 0; background: #e0f2fe; border-left: 4px solid #173f5f; border-radius: 0 4px 4px 0; text-align: left; font-size: 11px;}
+    .step-even { display: block; padding: 5px; margin: 3px 0; background: #f1f5f9; border-left: 4px solid #0a2342; border-radius: 0 4px 4px 0; text-align: left; font-size: 11px;}
+
+    /* 📱 STRICT MOBILE RESPONSIVE FIXES - ABSOLUTE FLOATING UI */
+    @media (max-width: 767px) {
+      .controls-container {
+        position: absolute;
+        bottom: 8vh; /* Floats exactly near the bottom of the screen */
+        left: 50%;
+        transform: translateX(-50%);
+        flex-direction: column; /* Vertical stack */
+        gap: 10px; /* Neat spacing between buttons */
+        width: auto;
+        margin-top: 0;
+      }
+      
+      .modern-btn {
+        width: 180px; /* Small, sleek floating buttons */
+        padding: 10px; 
+        font-size: 12px; 
+        border-radius: 40px; /* Pill shape */
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5); /* Stronger drop shadow to look like they are floating */
+      }
+
+      /* Re-order buttons if you want Special on top, then Next, then Prev */
+      #playButton { order: 1; }
+      #nextButton { order: 2; }
+      #prevButton { order: 3; }
+
+      .hint-text {
+        position: absolute;
+        bottom: 3vh; /* Floats perfectly at the very bottom edge */
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
+        margin-top: 0;
+      }
+
+      .content-wrapper { padding: 10px; }
+      .content-wrapper h1 { font-size: 18px; }
+      .content-wrapper blockquote { font-size: 11.5px; margin-bottom: 5px;}
+    }
+  </style>
 </head>
 <body>
-  <div class="container">
+  <div class="app-container">
+    
     <div class="book-wrapper animated">
       <div id="flipbook">
+        
         <div class="fixed hard p1">
           <div class="content-wrapper">
             <h1>Wishing you a very happy birthday baby 💗</h1>
-            <h2>nainu <img style="height: 20px; width: 20px;" src="images/heart-emoji.gif" alt=""></h2>
-            <img src="images/mahadevparvatiji.png" height="200px" alt="">
+            <h2>Naina <img class="no-shadow" style="height: 20px; width: 20px;" src="images/heart-emoji.gif" alt=""></h2>
+            <figure>
+              <img class="no-shadow" src="images/grok.png" alt="">
+            </figure>
           </div>
         </div>
+
         <div class="fixed hard">
           <div class="content-wrapper">
-            <blockquote style="position: relative; bottom: 20px;">
+            <blockquote>
               "Happy Birthday, My Love! As you turn these pages, I want you to know that each one holds a piece of my heart, just like you do. 🎂❤️"
             </blockquote>
-            <figure style="position: relative; bottom: 25px;">
-              <img style="position: relative; bottom: 25px;" src="./images/naina1.jpeg" alt="Thingumy and Bob">
+            <figure>
+              <img src="./images/naina1.jpeg" alt="Naina">
             </figure>
           </div>
         </div>
-        <div class="page">
+
+        <div class="page odd">
           <div class="content-wrapper">
+            <h3>Chapter 19: The Future 🎓</h3>
             <blockquote>
-              <p>"Our late-night chats mean the world to me 🌙💬 and you are looking so good in this saree babe👀..."</p>
+              Now you're 19, and starting college next week! It's a huge milestone, baby, but don't stress—I've got you. Whatever happens, I’ll take care of you. Just keep choosing me, keep choosing us. Step into this new era knowing you have a man who loves you endlessly. Happy 19th Birthday. ❤️
             </blockquote>
             <figure>
-              <img style="position: relative; right: 30px; top: 20px;" src="./images/naina2.jpeg" alt="Tove Jansson">
+              <img src="./images/college.png" alt="College">
             </figure>
           </div>
         </div>
-        <div class="page">
+
+        <div class="page even">
           <div class="content-wrapper">
+            <h3>Year Three: Unbreakable 🛡️</h3>
             <blockquote>
-              <p>Our love story is my favorite... ❤️📖, how we come this much close to each other 👀 from being strangers, and i want to make this relationship with you naina for forever ❤️</p>
+              We got closer, but real love always gets tested. When a third person tried to bring turbulence into our lives, we didn't fold. I promised I would be there for you, to protect what we have. We walked through that hurdle together, and we came out stronger. I'm always going to stand by you, Naina. 💪
             </blockquote>
             <figure>
-              <img style="position: relative; top: 40px;" src="./images/naina3.jpeg" alt="Moominvalley">
+              <img src="./images/together.png" alt="Strong together">
             </figure>
           </div>
         </div>
-        <div class="page">
+
+        <div class="page odd">
           <div class="content-wrapper">
+            <h3>Year Two: The Magic ✨</h3>
             <blockquote>
-              "Darling, you're not only my love, but you're also my closest confidant, the one with whom I can freely share my heart because I feel an irresistible connection with you. "Now, I want to hold you close, to feel your presence next to mine, and save every moment with you.". 👫💫"
+              And then it happened. The day we finally shared that first kiss. It was better than all our late-night conversations combined. Time stopped, and in that split second, I knew I was completely yours. That was the moment everything changed for the better. ❤️
             </blockquote>
             <figure>
-              <img style="position: relative; right: 30px;" src="./images/naina4.jpeg" alt="Moominpappa">
+              <img src="./images/fun.png" alt="Romantic">
             </figure>
           </div>
         </div>
-        <div class="page">
+
+        <div class="page even">
           <div class="content-wrapper">
+            <h3>Year One: The Spark ⚡</h3>
             <blockquote>
-              When I say 'I love you,' I mean 'forever and always.' 💖 i am so lucky that i have this preety girl in my life (ha thodi buddhu bhi hai ye par isme bhi mujhe cute lagti hai 😂) i do worried when you get upset and feel good when i tried to make you little happy ☠️... babe you are looking so preety in this red dress (apni gdrive par save bhi kar rakhi hai ye mene ☠️)
+              Do you remember our late-night talks back in the first year? We used to stay up just wondering what our first kiss would feel like. The anticipation, the butterflies... I knew even then that I was falling for someone incredibly special. 🦋
             </blockquote>
             <figure>
-              <img src="./images/naina5.jpeg" alt="Too-ticky">
+              <img src="./images/hand.png" alt="Cute early photo">
             </figure>
           </div>
         </div>
-        <div class="page">
+
+        <div class="page odd">
+          <div class="content-wrapper">
+            <h3>Welcome to Your 18th Chapter! 🎉</h3>
+            <blockquote>
+              Happy 18th Birthday, Naina! Today, we celebrate you stepping into this beautiful new chapter of life. From meeting on Quora to our magical first kiss on December 6, 2024, our journey has been a dream I never want to wake from. Here's to growing older together, hand in hand. ❤️
+            </blockquote>
+            <figure>
+              <img src="./images/image.jpg" alt="First photo together">
+            </figure>
+          </div>
+        </div>
+
+        <div class="page even">
+          <div class="content-wrapper">
+            <h3>Your Skincare & Makeup ✨</h3>
+            <blockquote>
+              Naina, your love for skincare and makeup is pure art! I’ll never forget that video call when I jotted down every step of your routine—you looked so radiant! 👀❤️ <br>
+              <span class="step-odd">💧 Step 1: Moisturizer</span>
+              <span class="step-even">💄 Step 2: Lip Balm (Vaseline)</span>
+              <span class="step-odd">🧴 Step 3: Serum</span>
+              <span class="step-even">✨ Step 4: Primer (smooth makeup)</span>
+            </blockquote>
+          </div>
+        </div>
+
+        <div class="page odd">
+          <div class="content-wrapper">
+            <blockquote>
+              <span class="step-odd">💆 Step 5: Play with hair</span>
+              <span class="step-even">🔍 Step 6: Searching her blender</span>
+              <span class="step-odd">🎨 Step 7: Concealer orange</span>
+              <span class="step-even">🖌️ Step 8: Cream Concealer apply with blender</span>
+              <span class="step-odd">🧴 Step 9: Foundation apply on hand then face</span>
+              <span class="step-even">🌸 Step 10: Blush (pink) with brush</span>
+            </blockquote>
+          </div>
+        </div>
+
+        <div class="page even">
+          <div class="content-wrapper">
+            <blockquote>
+              <span class="step-odd">💋 Step 11: Remove lip balm</span>
+              <span class="step-even">🖌️ Step 12: Compact apply with brush</span>
+              <span class="step-odd">✍️ Step 13: Apply kajal</span>
+              <span class="step-even">🖌️ Step 14: Use brush</span>
+              <span class="step-odd">💄 Step 15: Apply lipstick</span>
+              <span class="step-even" style="font-weight: bold; color: #173f5f;">🔥 Now she is looking hot 👀❤️</span>
+            </blockquote>
+          </div>
+        </div>
+
+        <div class="page odd">
+          <div class="content-wrapper">
+            <blockquote>
+              <span class="step-odd">🌟 Step 16: Apply eye shadow</span>
+              <span class="step-even">👁️ Step 17: Avoid mascara</span>
+              <span class="step-odd">✨ Step 18: Highlighter (hand then brush)</span>
+              <span class="step-even">💆 Step 19: Play with hair</span>
+              <span class="step-odd">😊 Step 20: Start blushing (looking at me)</span>
+              <span class="step-even">💦 Step 21: Setting spray</span>
+            </blockquote>
+          </div>
+        </div>
+
+        <div class="page even">
+          <div class="content-wrapper">
+            <blockquote>
+              <span class="step-odd">🪮 Step 22: Make use of comb</span>
+              <span class="step-even">🎨 Step 23: Apply contouring</span>
+              <span class="step-odd" style="font-weight: bold; color: #173f5f;">💖 Step 24: Final look ➡️🙈</span>
+            </blockquote>
+            <figure>
+              <img src="./images/makeupLook.jpg" alt="Final Look">
+            </figure>
+          </div>
+        </div>
+
+        <div class="page odd">
+          <div class="content-wrapper">
+            <blockquote>
+              <h3>So, this is your sweet 20 birthday... i wish i could kiss you now ;) so just save your first kiss till we meet baby ❤️</h3>
+            </blockquote>
+            <figure>
+              <img src="./images/forehead-kiss-armie-hammer.gif" alt="Kiss">
+            </figure>
+          </div>
+        </div>
+
+        <div class="page even">
           <div class="content-wrapper">
             <blockquote>
               Do you remember this conversations of us, this is your cutest trick to make me happy as i was liitle worried and you make me feel secure for our relationship and i like that you told me everything baby ❤️
             </blockquote>
             <figure>
-              <img style="width: 100px; height: 200px;" src="./images/chatss.jpg" alt="Moominmamma">
+              <img src="./images/chatss.jpg" alt="Chats">
             </figure>
           </div>
         </div>
-        <div class="page">
+
+        <div class="page odd">
           <div class="content-wrapper">
             <blockquote>
-              <h3>So, this is your sweet seventeen birthday... i wish i could kiss you now ;) so just save your first kiss till we meet baby ❤️</h3>
+              When I say 'I love you,' I mean 'forever and always.' 💖 i am so lucky that i have this preety girl in my life (ha thodi buddhu bhi hai ye par isme bhi mujhe cute lagti hai 😂) i do worried when you get upset and feel good when i tried to make you little happy ☠️... babe you are looking so preety in this red dress (apni gdrive par save bhi kar rakhi hai ye mene ☠️)
             </blockquote>
             <figure>
-              <img src="./images/forehead-kiss-armie-hammer.gif">
+              <img src="./images/naina5.jpeg" alt="Red dress">
             </figure>
           </div>
         </div>
-        <div class="page odd">
+
+        <div class="page even">
           <div class="content-wrapper">
-            <h3>Welcome to Your 18th Chapter, My Love!🎉</h3>
             <blockquote>
-              Happy 18th Birthday, Naina! Today, we celebrate you stepping into this beautiful new chapter of life. From meeting on Quora to our magical first kiss on December 6, 2024, our journey has been a dream I never want to wake from. Here's to growing older together, hand in hand. ❤️
+              "Darling, you're not only my love, but you're also my closest confidant, the one with whom I can freely share my heart because I feel an irresistible connection with you. Now, I want to hold you close, to feel your presence next to mine, and save every moment with you. 👫💫"
             </blockquote>
             <figure>
-              <img src="./images/image.jpg" alt="Our first photo together">
+              <img src="./images/naina4.jpeg" alt="Confidant">
             </figure>
           </div>
         </div>
-        <div class="page even">
-          <div class="content-wrapper">
-            <h3 style="font-family: 'Quicksand'; color: #ff4d94; text-align: center;">Your Skincare & Makeup Magic ✨</h3>
-            <blockquote style="font-family: 'Quicksand'; font-size: 12px; line-height: 1.5;">
-              Naina, your love for skincare and makeup is pure art! I’ll never forget that video call when I jotted down every step of your routine—you looked so radiant! From moisturizer to that final setting spray, you glowed, and that photo you sent after? Absolutely stunning! Here’s to you shining even brighter at 18. 👀❤️ <br><br>
-              <span style="display: block; padding: 8px; margin: 4px 0; background: #ffe6f0; border-left: 4px solid #ff4d94;">💧 Step 1: Moisturizer</span>
-              <span style="display: block; padding: 8px; margin: 4px 0; background: #f3e8ff;">💄 Step 2: Lip Balm (Vaseline)</span>
-            </blockquote>
-          </div>
-        </div>
+
         <div class="page odd">
           <div class="content-wrapper">
-            <blockquote style="font-family: 'Quicksand'; font-size: 12px; line-height: 1.5;">
-              <span style="display: block; padding: 8px; margin: 4px 0; background: #ffe6f0; border-left: 4px solid #ff4d94;">🧴 Step 3: Serum</span>
-              <span style="display: block; padding: 8px; margin: 4px 0; background: #f3e8ff;">✨ Step 4: Primer (smooth makeup)</span>
-              <span style="display: block; padding: 8px; margin: 4px 0; background: #ffe6f0; border-left: 4px solid #ff4d94;">💆 Step 5: Play with hair</span>
-              <span style="display: block; padding: 8px; margin: 4px 0; background: #f3e8ff;">🔍 Step 6: Searching her blender</span>
-              <span style="display: block; padding: 8px; margin: 4px 0; background: #ffe6f0; border-left: 4px solid #ff4d94;">🎨 Step 7: Concealer orange (there is so much variety)</span>
-              <span style="display: block; padding: 8px; margin: 4px 0; background: #f3e8ff;">🖌️ Step 8: Cream Concealer apply with blender (skin colour)</span>
-              <span style="display: block; text-align: center; margin-top: 10px;">➡️➡️➡️ next</span>
-            </blockquote>
-          </div>
-        </div>
-        <div class="page even">
-          <div class="content-wrapper">
-            <blockquote style="font-family: 'Quicksand'; font-size: 12px; line-height: 1.5;">
-              <span style="display: block; padding: 8px; margin: 4px 0; background: #ffe6f0; border-left: 4px solid #ff4d94;">🧴 Step 9: Foundation apply first on hand and then on face and rub</span>
-              <span style="display: block; padding: 8px; margin: 4px 0; background: #f3e8ff;">🌸 Step 10: Blush (pink) apply with brush (red brush with green handle)</span>
-              <span style="display: block; padding: 8px; margin: 4px 0; background: #ffe6f0; border-left: 4px solid #ff4d94;">💋 Step 11: Remove lip balm</span>
-              <span style="display: block; padding: 8px; margin: 4px 0; background: #f3e8ff;">🖌️ Step 12: Compact apply with brush</span>
-              <span style="display: block; padding: 8px; margin: 4px 0; background: #ffe6f0; border-left: 4px solid #ff4d94;">✍️ Step 13: Apply kajal</span>
-              <span style="display: block; padding: 8px; margin: 4px 0; background: #f3e8ff;">🖌️ Step 14: Use brush</span>
-            </blockquote>
-          </div>
-        </div>
-        <div class="page odd">
-          <div class="content-wrapper">
-            <blockquote style="font-family: 'Quicksand'; font-size: 12px; line-height: 1.5;">
-              <span style="display: block; padding: 8px; margin: 4px 0; background: #ffe6f0; border-left: 4px solid #ff4d94;">💄 Step 15: Apply lipstick</span>
-              <span style="display: block; padding: 8px; margin: 4px 0; background: #f3e8ff; font-weight: bold; color: #ff4d94;">🔥 Now she is looking hot 👀❤️</span>
-              <span style="display: block; padding: 8px; margin: 4px 0; background: #ffe6f0; border-left: 4px solid #ff4d94;">🌟 Step 16: Apply eye shadow</span>
-              <span style="display: block; padding: 8px; margin: 4px 0; background: #f3e8ff;">👁️ Step 17: Avoid mascara (prefer only if you go outside)</span>
-              <span style="display: block; padding: 8px; margin: 4px 0; background: #ffe6f0; border-left: 4px solid #ff4d94;">✨ Step 18: Highlighter (apply with hand) and then use brush</span>
-              <span style="display: block; padding: 8px; margin: 4px 0; background: #f3e8ff;">💆 Step 19: Play with hair</span>
-              <span style="display: block; text-align: center; margin-top: 10px;">➡️➡️➡️ next</span>
-            </blockquote>
-          </div>
-        </div>
-        <div class="page even">
-          <div class="content-wrapper">
-            <blockquote style="font-family: 'Quicksand'; font-size: 12px; line-height: 1.5;">
-              <span style="display: block; padding: 8px; margin: 4px 0; background: #ffe6f0; border-left: 4px solid #ff4d94;">😊 Step 20: Start blushing (after seeing your pasandida mard is looking at you)</span>
-              <span style="display: block; padding: 8px; margin: 4px 0; background: #f3e8ff;">💦 Step 21: Setting spray</span>
-              <span style="display: block; padding: 8px; margin: 4px 0; background: #ffe6f0; border-left: 4px solid #ff4d94;">🪮 Step 22: Make use of comb for your hair</span>
-              <span style="display: block; padding: 8px; margin: 4px 0; background: #f3e8ff;">🎨 Step 23: Apply contouring</span>
-              <span style="display: block; padding: 8px; margin: 4px 0; background: #ffe6f0; border-left: 4px solid #ff4d94; font-weight: bold; color: #ff4d94;">💖 Step 24: Final look ➡️🙈</span>
-            </blockquote>
-          </div>
-        </div>
-        <div class="page odd">
-          <div class="content-wrapper">
-            <blockquote style="font-family: 'Quicksand'; font-size: 12px; line-height: 1.5;">
+            <blockquote>
+              Our love story is my favorite... ❤️📖, how we come this much close to each other 👀 from being strangers, and i want to make this relationship with you naina for forever ❤️
             </blockquote>
             <figure>
-              <img src="./images/makeupLook.jpg" alt="Our first photo together" style="width: auto; height: 150px; margin-top: 10px;">
+              <img src="./images/naina3.jpeg" alt="Love story">
             </figure>
           </div>
         </div>
+
+        <div class="page even">
+          <div class="content-wrapper">
+            <blockquote>
+              "Our late-night chats mean the world to me 🌙💬 and you are looking so good in this saree babe👀..."
+            </blockquote>
+            <figure>
+              <img src="./images/naina2.jpeg" alt="Saree">
+            </figure>
+          </div>
+        </div>
+
         <div class="fixed hard"></div>
         <div class="fixed hard"></div>
+        
       </div>
     </div>
-    <div class="button-group" style="display: flex;">
-      <button id="prevButton" style="position: relative; top: 20px; left: 300px; padding: 10px 20px; background-color: #007bff; color: #fff; border: none; cursor: pointer;">Touch here for Previous Page</button>
-      <button id="nextButton" style="position: relative; top: 20px; left: 400px; padding: 10px 20px; background-color: #007bff; color: #fff; border: none; cursor: pointer;">Touch here for Next Page</button>
+
+    <!-- Floating Buttons Container -->
+    <div class="controls-container">
+      <button id="prevButton" class="modern-btn">⬅️ Prev</button>
+      <button id="playButton" class="modern-btn special-btn">💌 Special Message</button>
+      <button id="nextButton" class="modern-btn">Next ➡️</button>
     </div>
-    <div>
-      <button id="playButton" style="padding: 20px 20px; position: relative; text-align: center; border-radius: 50%; top: 50px; left: 500px; background-color: #a0d2eb; border: none; cursor: pointer;">Special Message</button>
-    </div>
-    <div>you can also flip the by your finger touch</div>
-    <script src="main.js"></script>
+    
+    <!-- Floating Hint Text -->
+    <div class="hint-text">✨ Swipe or tap the corners to turn the pages ✨</div>
+
+  </div>
+
+  <script>
+    $(document).ready(function () {
+      const $flipbook = $("#flipbook");
+      
+      function setFlipbookSize() {
+        const screenWidth = window.innerWidth;
+        const screenHeight = window.innerHeight;
+        
+        let bookWidth, bookHeight;
+
+        // Mobile Logic
+        if (screenWidth < 768) {
+          $flipbook.turn("display", "single");
+          
+          bookWidth = screenWidth - 40; 
+          
+          // Because buttons are now absolute and floating at the bottom 8% of the screen, 
+          // we can make the book a little bigger (60% height) and it still won't overlap the buttons.
+          bookHeight = screenHeight * 0.60; 
+        } 
+        // Desktop/Tablet Logic
+        else {
+          $flipbook.turn("display", "double"); 
+          bookWidth = Math.min(800, screenWidth * 0.9);
+          bookHeight = Math.min(500, screenHeight * 0.75);
+        }
+
+        $flipbook.turn("size", bookWidth, bookHeight);
+      }
+
+      $flipbook.turn({
+        autoCenter: true,
+        elevation: 100,
+        gradients: true, 
+        duration: 1200 
+      });
+
+      setFlipbookSize();
+
+      let resizeTimer;
+      $(window).resize(function() {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(function() {
+          setFlipbookSize();
+        }, 200);
+      });
+
+      $("#nextButton").click(function () { $flipbook.turn("next"); });
+      $("#prevButton").click(function () { $flipbook.turn("previous"); });
+      $("#playButton").click(function () { window.location = "hello.html"; });
+
+      setInterval(function () {
+        if ($flipbook.turn("page") < $flipbook.turn("pages")) {
+          $flipbook.turn("next");
+        }
+      }, 25000);
+    });
+  </script>
 </body>
 </html>
